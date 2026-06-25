@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10 AI-персонажей — НейроЭра Академия</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pink:     #C4536A;
+  --pink-lt:  #FDE8EF;
+  --teal:     #2A7A70;
+  --teal-lt:  #E8F7F4;
+  --navy:     #1A2A4A;
+  --cream:    #FDF8F5;
+  --text:     #2B2B2B;
+  --muted:    #888;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--cream); font-family: 'Nunito', sans-serif; color: var(--text); }
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #B8E8E0 0%, #F7C5D5 50%, #FDE9A2 100%);
+  padding: 72px 24px 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(255,255,255,0.45) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(196,83,106,0.12);
+  border: 1px solid rgba(196,83,106,0.3);
+  color: var(--pink);
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 5px 16px; border-radius: 100px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 7vw, 62px);
+  font-weight: 700; color: var(--navy);
+  line-height: 1.1; margin-bottom: 12px;
+  position: relative;
+}
+.hero h1 em { color: var(--pink); font-style: italic; }
+.hero-sub {
+  font-size: 17px; color: #555;
+  max-width: 540px; margin: 0 auto 32px;
+  line-height: 1.65; position: relative;
+}
+.hero-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; position: relative; }
+.hero-tag {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(196,83,106,0.2);
+  color: var(--navy); font-size: 12px; font-weight: 700;
+  padding: 5px 14px; border-radius: 100px;
+}
+
+/* ── INTRO ── */
+.intro { max-width: 700px; margin: 56px auto 0; padding: 0 24px 48px; text-align: center; }
+.intro p { font-size: 16px; color: #555; line-height: 1.75; }
+
+/* ── GRID ── */
+.grid { max-width: 1100px; margin: 0 auto; padding: 0 20px 80px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+
+/* ── CARD ── */
+.card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(196,83,106,0.07);
+  border: 1.5px solid #F5ECF0;
+  display: flex; flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(196,83,106,0.12); }
+
+.card-header {
+  padding: 28px 24px 20px;
+  position: relative;
+}
+.card-emoji { font-size: 42px; margin-bottom: 10px; display: block; }
+.card-style {
+  display: inline-block;
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 100px;
+  margin-bottom: 10px;
+}
+.card-num {
+  position: absolute; top: 20px; right: 22px;
+  font-family: 'Playfair Display', serif;
+  font-size: 48px; font-weight: 700;
+  color: #F5ECF0; line-height: 1;
+  user-select: none;
+}
+.card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--navy); line-height: 1.2;
+  margin-bottom: 4px;
+}
+.card-role { font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 14px; }
+.card-desc { font-size: 14px; color: #444; line-height: 1.7; }
+
+.card-divider { height: 1px; background: #F5ECF0; margin: 0 24px; }
+
+.card-prompt { padding: 18px 24px 20px; flex: 1; }
+.prompt-label {
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 10px; display: block;
+}
+.prompt-text {
+  font-size: 12px; line-height: 1.65;
+  color: #333; background: var(--teal-lt);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 14px;
+  font-family: 'Nunito', sans-serif;
+  position: relative;
+}
+.copy-btn {
+  display: block; width: 100%;
+  margin-top: 10px;
+  background: none;
+  border: 1.5px solid #E8EEF0;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 12px; font-weight: 700;
+  color: var(--teal); cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  font-family: 'Nunito', sans-serif;
+}
+.copy-btn:hover { background: var(--teal-lt); border-color: var(--teal); }
+.copy-btn.copied { background: var(--teal-lt); border-color: var(--teal); color: var(--teal); }
+
+/* Цвета карточек по стилю */
+.s-noir    { background: #EEF0FD; color: #5A6ACA; border-color: #5A6ACA33; }
+.s-bjd     { background: #FDE8EF; color: var(--pink); border-color: #C4536A33; }
+.s-pixar   { background: #FEF6E4; color: #C89A20; border-color: #F5C84233; }
+.s-anime   { background: #F3ECF9; color: #8A5AB8; border-color: #B07FD433; }
+.s-akvarell { background: #E8F7F4; color: var(--teal); border-color: #2A7A7033; }
+.s-real    { background: #F0F0F0; color: #555; border-color: #88888833; }
+.s-stop    { background: #FDE8EF; color: var(--pink); border-color: #C4536A33; }
+.s-graphic { background: #FEF6E4; color: #B07020; border-color: #F5C84233; }
+.s-2d      { background: #E8F7F4; color: var(--teal); border-color: #2A7A7033; }
+.s-cartoon { background: #F3ECF9; color: #8A5AB8; border-color: #B07FD433; }
+
+/* header bg по стилю */
+.h-noir    { background: linear-gradient(135deg, #EEF0FD, #D8DCFA); }
+.h-bjd     { background: linear-gradient(135deg, #FDE8EF, #F9C5D5); }
+.h-pixar   { background: linear-gradient(135deg, #FEF6E4, #FDE9A2); }
+.h-anime   { background: linear-gradient(135deg, #F3ECF9, #E5D5F5); }
+.h-akvarell { background: linear-gradient(135deg, #E8F7F4, #C5EDE8); }
+.h-real    { background: linear-gradient(135deg, #F0F0F0, #E0E0E8); }
+.h-stop    { background: linear-gradient(135deg, #FDE8EF, #FDDDE8); }
+.h-graphic { background: linear-gradient(135deg, #FEF6E4, #FDE0B0); }
+.h-2d      { background: linear-gradient(135deg, #E8F7F4, #D0F0EA); }
+.h-cartoon { background: linear-gradient(135deg, #F3ECF9, #E8D5F8); }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 48px 24px 56px;
+  background: var(--navy);
+  color: rgba(255,255,255,0.4);
+  font-size: 13px; line-height: 1.8;
+}
+footer strong { color: rgba(255,255,255,0.8); font-size: 16px; display: block; margin-bottom: 6px; }
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-badge">НейроЭра Академия · @annaproai</div>
+  <h1>10 <em>AI-персонажей</em><br>с промптами</h1>
+  <p class="hero-sub">Готовые характеры для AI-мультиков, вертикальных сериалов и AI-моделей — в разных стилях, разных видов, с историей</p>
+  <div class="hero-tags">
+    <span class="hero-tag">🎬 Нуар-анимация</span>
+    <span class="hero-tag">🪆 BJD / Кукольный</span>
+    <span class="hero-tag">✨ Pixar 3D</span>
+    <span class="hero-tag">🌸 Аниме</span>
+    <span class="hero-tag">🖌 Акварель</span>
+    <span class="hero-tag">📷 Гиперреализм</span>
+    <span class="hero-tag">🧸 Stop-motion</span>
+    <span class="hero-tag">📓 Graphic novel</span>
+    <span class="hero-tag">✏️ 2D классика</span>
+    <span class="hero-tag">🌈 Cartoon</span>
+  </div>
+</header>
+
+<div class="intro">
+  <p>Каждый персонаж — это готовый герой с характером, историей и промптом для генерации. Бери, адаптируй под свою нишу и создавай серии.</p>
+</div>
+
+<!-- GRID -->
+<div class="grid">
+
+  <!-- 1 -->
+  <div class="card">
+    <div class="card-header h-noir">
+      <div class="card-num">01</div>
+      <span class="card-emoji">🦊</span>
+      <div class="card-style s-noir">Нуар-анимация</div>
+      <div class="card-name">Макс</div>
+      <div class="card-role">Лис-детектив · Циник с кодексом чести</div>
+      <p class="card-desc">Рыжий лис в мятом плаще, всегда с сигаретой. Работает частным сыщиком в городе, где все друг другу лгут. Циничный, острый на язык — но с кодексом чести. Потерял напарника и с тех пор работает один. Голос усталый, низкий. Никому не доверяет — кроме клиентов, которым больше некому позвонить.</p>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-prompt">
+      <span class="prompt-label">🖊 Базовый промпт</span>
+      <div class="prompt-text" id="p1">Anthropomorphic red fox male detective, 40s, wearing a wrinkled grey trench coat, white dress shirt, loosened tie, holding a cigarette. Sharp amber eyes, tired expression, scar above left eyebrow. Noir animation style, dark city background with rain and neon reflections, dramatic side lighting, muted color palette with orange and blue accents. Cinematic composition, vertical frame.</div>
+      <button class="copy-btn" onclick="copyPrompt('p1', this)">Скопировать промпт</button>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="card">
+    <div class="card-header h-bjd">
+      <div class="card-num">02</div>
+      <span class="card-emoji">🪆</span>
+      <div class="card-style s-bjd">BJD / Кукольный</div>
+      <div class="card-name">Элла</div>
+      <div class="card-role">Кукла с трещиной · Молчаливый наблюдатель</div>
+      <p class="card-desc">Фарфоровая кукла с трещиной на щеке, которую прячет под волосами. Живёт в витрине антикварного магазина. Видит всё — но не может говорить. Только в темноте, когда все уходят, она двигается. История рассказывается через её взгляд — без слов, только действия.</p>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-prompt">
+      <span class="prompt-label">🖊 Базовый промпт</span>
+      <div class="prompt-text" id="p2">Porcelain ball-jointed doll (BJD), female, pale skin with a delicate crack on the left cheek partially hidden by long silver-white hair. Large glassy violet eyes, rosebud lips, wearing a vintage lace dress in dusty rose. Antique shop setting, soft candlelight, dust particles in the air. Photorealistic doll aesthetic, melancholic atmosphere, shallow depth of field, vertical composition.</div>
+      <button class="copy-btn" onclick="copyPrompt('p2', this)">Скопировать промпт</button>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="card">
+    <div class="card-header h-pixar">
+      <div class="card-num">03</div>
+      <span class="card-emoji">🐻</span>
+      <div class="card-style s-pixar">Pixar 3D</div>
+      <div class="card-name">Борис</div>
+      <div class="card-role">Медведь-повар · Мягкий снаружи, упрямый внутри</div>
+      <p class="card-desc">Огромный бурый медведь с маленьким фартуком и добрыми глазами. Держит крошечную кофейню в большом городе. Все его недооценивают из-за размера — а он готовит так, что люди плачут от вкуса. Никогда не повышает голос. Но если скажет «нет» — это нет навсегда.</p>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-prompt">
+      <span class="prompt-label">🖊 Базовый промпт</span>
+      <div class="prompt-text" id="p3">Anthropomorphic brown bear male chef, large and round body, small kind dark eyes, warm smile, wearing a tiny white apron with flour stains and a red striped shirt. Standing behind a cozy wooden bakery counter with pastries and steaming coffee cups. Pixar 3D animation style, warm golden lighting, soft shadows, cheerful color palette. Vertical cinematic frame.</div>
+      <button class="copy-btn" onclick="copyPrompt('p3', this)">Скопировать промпт</button>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="card">
+    <div class="card-header h-anime">
+      <div class="card-num">04</div>
+      <span class="card-emoji">🦈</span>
+      <div class="card-style s-anime">Аниме</div>
+      <div class="card-name">Рина</div>
+      <div class="card-role">Девочка-акула · Хочет друзей, пугает всех</div>
+      <p class="card-desc">16 лет, акула-подросток в обычной школе. Все её боятся — а она просто хочет друзей. Острые зубы, розовый рюкзак, огромные наушники. Грубит от смущения. Когда нервничает — непреднамеренно прикусывает парту. Краснеет — и злится что краснеет.</p>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-prompt">
+      <span class="prompt-label">🖊 Базовый промпт</span>
+      <div class="prompt-text" id="p4">Anime girl with shark features, teen, pale blue-grey skin, sharp white teeth in a nervous smile, large expressive dark eyes, wearing Japanese school uniform with a pastel pink backpack and oversized headphones around her neck. Blushing cheeks. Modern high school hallway background. Soft anime art style, bright colors, dynamic vertical composition, emotional expression.</div>
+      <button class="copy-btn" onclick="copyPrompt('p4', this)">Скопировать промпт</button>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="card">
+    <div class="card-header h-akvarell">
+      <div class="card-num">05</div>
+      <span class="card-emoji">🦢</span>
+      <div class="card-style s-akvarell">Китайская акварель</div>
+      <div class="card-name">Господин Чай</div>
+      <div class="card-role">Журавль-мудрец · Говорит только притчами</div>
+      <p class="card-desc">Старый журавль в шёлковом халате. Мастер чайной церемонии. К нему приходят люди с проблемами — уходят с ответами, которых не ожидали. Спокойный как вода. Опасный как вода. Никогда не спорит — просто смотрит, пока собеседник сам не поймёт что был неправ.</p>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-prompt">
+      <span class="prompt-label">🖊 Базовый промпт</span>
+      <div class="prompt-text" id="p5">Anthropomorphic elderly crane male in a flowing silk hanfu robe in deep teal and gold. Long white feathers, wise calm eyes, holding a delicate porcelain teacup. Traditional Chinese tea house interior with bamboo, paper lanterns, mist. Traditional Chinese ink wash painting style with soft watercolor washes, elegant brushwork, vertical scroll composition.</div>
+      <button class="copy-btn" onclick="copyPrompt('p5', this)">Скопировать промпт</button>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="card">
+    <div class="card-header h-real">
+      <div class="card-num">06</div>
+      <span class="card-emoji">🐆</span>
+      <div class="card-style s-real">Гиперреализм</div>
+      <div class="card-name">Зара</div>
+      <div class="card-role">Пантера-архитектор · Безупречная снаружи, сложная внутри</div>
+      <p class="card-desc">Чёрная пантера, 33 года. Строит небоскрёбы днём, ночью рисует дома для тех, кто не может себе позволить. Безупречный внешний вид, минимализм во всём. Один шрам на лапе — никогда не объясняет откуда. Улыбается редко. Когда улыбается — все хотят знать почему.</p>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-prompt">
+      <span class="prompt-label">🖊 Базовый промпт</span>
+      <div class="prompt-text" id="p6">Hyperrealistic anthropomorphic black panther female, 30s, sleek black fur, piercing amber eyes, small scar on left paw. Wearing a minimalist white architectural blazer, hair pulled back. Standing in a modern glass office with city skyline behind her, architectural blueprints on desk. Dramatic natural lighting, photorealistic render, professional editorial style, vertical frame.</div>
+      <button class="copy-btn" onclick="copyPrompt('p6', this)">Скопировать промпт</button>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="card">
+    <div class="card-header h-stop">
+      <div class="card-num">07</div>
+      <span class="card-emoji">🧸</span>
+      <div class="card-style s-stop">Stop-motion / Тряпичный</div>
+      <div class="card-name">Федя</div>
+      <div class="card-role">Плюшевый медведь · Забытый, но не сдавшийся</div>
+      <p class="card-desc">Старый потрёпанный плюшевый медведь. Хозяйка выросла и уехала. Теперь он на полке в пустой комнате. Ждёт. Иногда выходит ночью и смотрит в окно на город. Без слов — только действия. Одна пуговица вместо глаза. Залатанное ухо. Гарантированно разобьёт сердце аудитории.</p>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-prompt">
+      <span class="prompt-label">🖊 Базовый промпт</span>
+      <div class="prompt-text" id="p7">Old worn teddy bear character, one button eye, patched ear with visible stitching, faded brown fabric, small and round. Sitting alone on a dusty wooden shelf in an empty child's bedroom at night. Moonlight through the window casting long shadows. Stop-motion puppet aesthetic, photorealistic textures, melancholic atmosphere, muted warm tones, vertical cinematic frame.</div>
+      <button class="copy-btn" onclick="copyPrompt('p7', this)">Скопировать промпт</button>
+    </div>
+  </div>
+
+  <!-- 8 -->
+  <div class="card">
+    <div class="card-header h-graphic">
+      <div class="card-num">08</div>
+      <span class="card-emoji">🦊</span>
+      <div class="card-style s-graphic">Graphic Novel</div>
+      <div class="card-name">Нора</div>
+      <div class="card-role">Лиса-адвокат · Пробилась зубами и когтями</div>
+      <p class="card-desc">Рыжая лиса в строгом костюме. Защищает тех, кого все считают виноватыми. Сама из бедной семьи — пробилась через систему. Не улыбается в зале суда. Улыбается только когда выигрывает — а проигрывает редко. Каждая деталь одежды — броня.</p>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-prompt">
+      <span class="prompt-label">🖊 Базовый промпт</span>
+      <div class="prompt-text" id="p8">Anthropomorphic red fox female lawyer, sharp green eyes, sleek auburn fur, wearing a tailored charcoal suit with a silk blouse. Standing in a courtroom, holding documents, confident posture. Graphic novel illustration style, bold ink outlines, high contrast, limited color palette of deep reds and blacks, dramatic lighting. Vertical composition, dynamic angle.</div>
+      <button class="copy-btn" onclick="copyPrompt('p8', this)">Скопировать промпт</button>
+    </div>
+  </div>
+
+  <!-- 9 -->
+  <div class="card">
+    <div class="card-header h-2d">
+      <div class="card-num">09</div>
+      <span class="card-emoji">🐱</span>
+      <div class="card-style s-2d">2D Классика</div>
+      <div class="card-name">Старый Кот</div>
+      <div class="card-role">Без имени · Видел всё — говорит мало</div>
+      <p class="card-desc">Серый одноглазый кот. Живёт на крыше в Стамбуле. Видел революции, войны, любови. Молчит. Раз в серию скажет одну фразу — и она будет точнее всего, что говорили другие персонажи весь эпизод. Люди приходят к нему за советом. Он смотрит на горизонт.</p>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-prompt">
+      <span class="prompt-label">🖊 Базовый промпт</span>
+      <div class="prompt-text" id="p9">Old grey tomcat, one eye with a worn leather eyepatch, weathered fur, wise expression, sitting on a rooftop overlooking Istanbul at golden hour. Mosques and sea in the background. Classic 2D hand-drawn animation style, fluid linework, warm Mediterranean color palette, painterly backgrounds in the style of old European animation. Vertical frame, contemplative mood.</div>
+      <button class="copy-btn" onclick="copyPrompt('p9', this)">Скопировать промпт</button>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="card">
+    <div class="card-header h-cartoon">
+      <div class="card-num">10</div>
+      <span class="card-emoji">🐙</span>
+      <div class="card-style s-cartoon">Cartoon Network</div>
+      <div class="card-name">Мира</div>
+      <div class="card-role">Девочка-осьминог · Меняет цвет от эмоций</div>
+      <p class="card-desc">8 лет, восемь рук — и везде суётся. Живёт в подводном городе, хочет стать художником, хотя все говорят что у осьминогов нет таланта. Розовая когда влюблена, серая когда грустит, красная когда злится. Все об этом знают. Она думает что скрывает.</p>
+    </div>
+    <div class="card-divider"></div>
+    <div class="card-prompt">
+      <span class="prompt-label">🖊 Базовый промпт</span>
+      <div class="prompt-text" id="p10">Cartoon girl octopus character, 8 years old, round cheerful design, currently pink (happy/excited), big sparkling eyes, holding paintbrushes in two of her eight arms, wearing a tiny beret and paint-stained overalls. Underwater city background with colorful coral buildings. Cartoon Network animation style, bold outlines, vibrant saturated colors, expressive design. Vertical frame, dynamic pose.</div>
+      <button class="copy-btn" onclick="copyPrompt('p10', this)">Скопировать промпт</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <strong>НейроЭра Академия</strong>
+  @annaproai · @neir0set0chka<br>
+  Все персонажи и промпты созданы для образовательных целей.<br>
+  Адаптируй под свою нишу — и создавай своих героев 🌸
+</footer>
+
+<script>
+function copyPrompt(id, btn) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Скопировано ✓';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Скопировать промпт';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
