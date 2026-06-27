@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 хуков — НейроЭра</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Playfair+Display:wght@700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0D0F1A;color:#F0F2FF;font-family:'Nunito',sans-serif;min-height:100vh}
+.hero{padding:48px 24px 36px;text-align:center;border-bottom:1px solid #1E2235;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(ellipse,rgba(255,107,107,0.1) 0%,transparent 70%);pointer-events:none}
+.badge{display:inline-block;background:rgba(255,107,107,0.15);border:1px solid rgba(255,107,107,0.4);color:#FF6B6B;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:20px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,6vw,48px);line-height:1.2;margin-bottom:12px;background:linear-gradient(135deg,#fff 0%,#FF6B6B 50%,#C084FC 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:#7B82A8;font-size:14px;max-width:440px;margin:0 auto 24px;line-height:1.6}
+.stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.stat-num{font-size:28px;font-weight:900;color:#FF6B6B;display:block}
+.stat-lbl{font-size:11px;color:#7B82A8;text-transform:uppercase;letter-spacing:1px}
+.wrap{max-width:720px;margin:0 auto;padding:32px 20px 48px}
+.cat-header{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;color:#7B82A8;text-transform:uppercase;letter-spacing:1.5px;margin:32px 0 12px;padding-bottom:8px;border-bottom:1px solid #1E2235}
+.cat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.hook-card{background:#151828;border:1px solid #1E2235;border-radius:12px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;transition:all 0.18s}
+.hook-card:hover{border-color:rgba(255,107,107,0.35);transform:translateX(3px)}
+.hook-n{font-size:10px;font-weight:900;min-width:32px;padding-top:2px;letter-spacing:0.5px;flex-shrink:0}
+.hook-text{flex:1;font-size:14px;line-height:1.55;color:#F0F2FF}
+.copy-ico{font-size:14px;color:#7B82A8;padding-top:2px;opacity:0;transition:opacity 0.2s;flex-shrink:0}
+.hook-card:hover .copy-ico{opacity:1}
+.hook-card.copied{border-color:#4ECDC4!important}
+.hook-card.copied .copy-ico{opacity:1;color:#4ECDC4}
+.footer{text-align:center;padding:24px;border-top:1px solid #1E2235}
+.footer-logo{font-family:'Playfair Display',serif;font-size:16px;color:#FF6B6B}
+.footer-links{display:flex;justify-content:center;gap:20px;margin-top:10px}
+.footer-links a{color:#4ECDC4;text-decoration:none;font-size:13px;font-weight:700}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#4ECDC4;color:#0D0F1A;padding:10px 22px;border-radius:30px;font-weight:800;font-size:13px;transition:transform 0.3s;z-index:999;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+@media(max-width:480px){.hero{padding:32px 16px 24px}.wrap{padding:24px 16px 40px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="badge">НейроЭра Академия</div>
+  <h1>Хуки которые<br>останавливают скролл</h1>
+  <p>Нажми на любой — скопируется. Адаптируй под свою тему и используй.</p>
+  <a href="https://t.me/neir0set0chka" target="_blank" style="display:inline-block;margin-top:16px;background:rgba(78,205,196,0.15);border:1px solid rgba(78,205,196,0.4);color:#4ECDC4;font-size:13px;font-weight:800;padding:8px 20px;border-radius:20px;text-decoration:none;">📲 @neir0set0chka</a>
+  <div class="stats">
+    <div><span class="stat-num">110</span><span class="stat-lbl">хуков</span></div>
+    <div><span class="stat-num">9</span><span class="stat-lbl">категорий</span></div>
+    <div><span class="stat-num">∞</span><span class="stat-lbl">применений</span></div>
+  </div>
+</div>
+<div class="wrap">
+<div class="cat-header"><span class="cat-dot" style="background:#C084FC"></span>🧠 Экспертный контент — провокация</div>
+<div class="hook-card" onclick="copyHook(this,`Никто не говорит правду об этом. Я скажу.`)"><span class="hook-n" style="color:#C084FC">#001</span><div class="hook-text">Никто не говорит правду об этом. Я скажу.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я делала всё правильно. Ничего не работало. Вот что изменила.`)"><span class="hook-n" style="color:#C084FC">#002</span><div class="hook-text">Я делала всё правильно. Ничего не работало. Вот что изменила.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Этот совет злит экспертов. Работает лучше их рекомендаций.`)"><span class="hook-n" style="color:#C084FC">#003</span><div class="hook-text">Этот совет злит экспертов. Работает лучше их рекомендаций.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Мне заплатили за продвижение этого. Я отказалась. Вот почему.`)"><span class="hook-n" style="color:#C084FC">#004</span><div class="hook-text">Мне заплатили за продвижение этого. Я отказалась. Вот почему.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`То что продают как секрет — давно известно. Отдаю бесплатно.`)"><span class="hook-n" style="color:#C084FC">#005</span><div class="hook-text">То что продают как секрет — давно известно. Отдаю бесплатно.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Популярный эксперт ошибается. Вот доказательство.`)"><span class="hook-n" style="color:#C084FC">#006</span><div class="hook-text">Популярный эксперт ошибается. Вот доказательство.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Самый дорогой совет в нише — бесплатный. И неправильный.`)"><span class="hook-n" style="color:#C084FC">#007</span><div class="hook-text">Самый дорогой совет в нише — бесплатный. И неправильный.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`99% делают это неправильно. Ты, скорее всего, тоже.`)"><span class="hook-n" style="color:#C084FC">#008</span><div class="hook-text">99% делают это неправильно. Ты, скорее всего, тоже.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Всё что тебе говорили об алгоритмах — устарело. Вот что работает сейчас.`)"><span class="hook-n" style="color:#C084FC">#009</span><div class="hook-text">Всё что тебе говорили об алгоритмах — устарело. Вот что работает сейчас.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я потеряла деньги из-за этой ошибки. Теперь говорю об этом вслух.`)"><span class="hook-n" style="color:#C084FC">#010</span><div class="hook-text">Я потеряла деньги из-за этой ошибки. Теперь говорю об этом вслух.</div><span class="copy-ico">⎘</span></div>
+<div class="cat-header"><span class="cat-dot" style="background:#FFD93D"></span>🪞 Узнавание и эмпатия</div>
+<div class="hook-card" onclick="copyHook(this,`Ты тоже откладываешь это потому что «ещё не готова»?`)"><span class="hook-n" style="color:#FFD93D">#011</span><div class="hook-text">Ты тоже откладываешь это потому что «ещё не готова»?</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Это для тех кто знает что надо — но всё равно не делает.`)"><span class="hook-n" style="color:#FFD93D">#012</span><div class="hook-text">Это для тех кто знает что надо — но всё равно не делает.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Ты смотришь это в 2 часа ночи вместо того чтобы спать. Понимаю.`)"><span class="hook-n" style="color:#FFD93D">#013</span><div class="hook-text">Ты смотришь это в 2 часа ночи вместо того чтобы спать. Понимаю.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Для тех кто начинал три раза. И снова начинает.`)"><span class="hook-n" style="color:#FFD93D">#014</span><div class="hook-text">Для тех кто начинал три раза. И снова начинает.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`То чувство когда всё понимаешь — но результата нет.`)"><span class="hook-n" style="color:#FFD93D">#015</span><div class="hook-text">То чувство когда всё понимаешь — но результата нет.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Ты делаешь всё правильно. И всё равно что-то не так. Знаю это.`)"><span class="hook-n" style="color:#FFD93D">#016</span><div class="hook-text">Ты делаешь всё правильно. И всё равно что-то не так. Знаю это.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Для тех у кого это работает у всех вокруг — и только не у тебя.`)"><span class="hook-n" style="color:#FFD93D">#017</span><div class="hook-text">Для тех у кого это работает у всех вокруг — и только не у тебя.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Ты не ленивая. Это реально сложно. Вот почему.`)"><span class="hook-n" style="color:#FFD93D">#018</span><div class="hook-text">Ты не ленивая. Это реально сложно. Вот почему.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Для тех кто купил курс и не прошёл до конца. Без осуждения.`)"><span class="hook-n" style="color:#FFD93D">#019</span><div class="hook-text">Для тех кто купил курс и не прошёл до конца. Без осуждения.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Самая частая мысль тех кто этим занимается. Угадай.`)"><span class="hook-n" style="color:#FFD93D">#020</span><div class="hook-text">Самая частая мысль тех кто этим занимается. Угадай.</div><span class="copy-ico">⎘</span></div>
+<div class="cat-header"><span class="cat-dot" style="background:#FF8C42"></span>❓ Тайна и интрига</div>
+<div class="hook-card" onclick="copyHook(this,`Ответ — в конце. Но ты поймёшь его раньше.`)"><span class="hook-n" style="color:#FF8C42">#021</span><div class="hook-text">Ответ — в конце. Но ты поймёшь его раньше.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`То что произошло дальше изменило всё.`)"><span class="hook-n" style="color:#FF8C42">#022</span><div class="hook-text">То что произошло дальше изменило всё.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она не знала что это последний раз.`)"><span class="hook-n" style="color:#FF8C42">#023</span><div class="hook-text">Она не знала что это последний раз.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он знал. Она не знала. Мы знаем оба.`)"><span class="hook-n" style="color:#FF8C42">#024</span><div class="hook-text">Он знал. Она не знала. Мы знаем оба.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Один вопрос меняет всё. Я не скажу его сразу.`)"><span class="hook-n" style="color:#FF8C42">#025</span><div class="hook-text">Один вопрос меняет всё. Я не скажу его сразу.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Три версии одного события. Правда — в четвёртой.`)"><span class="hook-n" style="color:#FF8C42">#026</span><div class="hook-text">Три версии одного события. Правда — в четвёртой.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Детектив расследует дело. Это её дело.`)"><span class="hook-n" style="color:#FF8C42">#027</span><div class="hook-text">Детектив расследует дело. Это её дело.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Ключ был у неё всё время. Она не знала что это ключ.`)"><span class="hook-n" style="color:#FF8C42">#028</span><div class="hook-text">Ключ был у неё всё время. Она не знала что это ключ.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Все думали что знают что произошло. Все ошибались одинаково.`)"><span class="hook-n" style="color:#FF8C42">#029</span><div class="hook-text">Все думали что знают что произошло. Все ошибались одинаково.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Свидетель видел. Не понял что видел. Не забыл.`)"><span class="hook-n" style="color:#FF8C42">#030</span><div class="hook-text">Свидетель видел. Не понял что видел. Не забыл.</div><span class="copy-ico">⎘</span></div>
+<div class="cat-header"><span class="cat-dot" style="background:#FF6B6B"></span>🎨 AI-мультики — жизненные моменты</div>
+<div class="hook-card" onclick="copyHook(this,`Она молчала об этом десять лет. А потом сказала за ужином.`)"><span class="hook-n" style="color:#FF6B6B">#031</span><div class="hook-text">Она молчала об этом десять лет. А потом сказала за ужином.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он предложил развод через день после того как она уволилась ради него.`)"><span class="hook-n" style="color:#FF6B6B">#032</span><div class="hook-text">Он предложил развод через день после того как она уволилась ради него.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Мама позвонила первый раз за год. Чтобы попросить денег.`)"><span class="hook-n" style="color:#FF6B6B">#033</span><div class="hook-text">Мама позвонила первый раз за год. Чтобы попросить денег.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Подруга лайкала каждый пост. Пока она не стала зарабатывать больше.`)"><span class="hook-n" style="color:#FF6B6B">#034</span><div class="hook-text">Подруга лайкала каждый пост. Пока она не стала зарабатывать больше.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он сказал «ты изменилась». Она ответила «наконец-то».`)"><span class="hook-n" style="color:#FF6B6B">#035</span><div class="hook-text">Он сказал «ты изменилась». Она ответила «наконец-то».</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она ждала его извинений пять лет. Он так и не понял за что.`)"><span class="hook-n" style="color:#FF6B6B">#036</span><div class="hook-text">Она ждала его извинений пять лет. Он так и не понял за что.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он узнал о её тайне случайно. Она не знала что он знает.`)"><span class="hook-n" style="color:#FF6B6B">#037</span><div class="hook-text">Он узнал о её тайне случайно. Она не знала что он знает.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Они не разговаривали три года. Встретились на похоронах общего друга.`)"><span class="hook-n" style="color:#FF6B6B">#038</span><div class="hook-text">Они не разговаривали три года. Встретились на похоронах общего друга.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она простила его. Не потому что он заслужил. Потому что устала носить.`)"><span class="hook-n" style="color:#FF6B6B">#039</span><div class="hook-text">Она простила его. Не потому что он заслужил. Потому что устала носить.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он думал что она ушла. Она просто перестала возвращаться.`)"><span class="hook-n" style="color:#FF6B6B">#040</span><div class="hook-text">Он думал что она ушла. Она просто перестала возвращаться.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она улыбалась на каждом фото. Никто не спрашивал как она на самом деле.`)"><span class="hook-n" style="color:#FF6B6B">#041</span><div class="hook-text">Она улыбалась на каждом фото. Никто не спрашивал как она на самом деле.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он сделал всё правильно. Она всё равно ушла. Это сломало его.`)"><span class="hook-n" style="color:#FF6B6B">#042</span><div class="hook-text">Он сделал всё правильно. Она всё равно ушла. Это сломало его.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Они прожили вместе двадцать лет. Она узнала его настоящее имя только сейчас.`)"><span class="hook-n" style="color:#FF6B6B">#043</span><div class="hook-text">Они прожили вместе двадцать лет. Она узнала его настоящее имя только сейчас.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он сказал что любит её. Именно тогда когда это уже ничего не меняло.`)"><span class="hook-n" style="color:#FF6B6B">#044</span><div class="hook-text">Он сказал что любит её. Именно тогда когда это уже ничего не меняло.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она вернулась другой. Он хотел прежнюю. Прежней больше не было.`)"><span class="hook-n" style="color:#FF6B6B">#045</span><div class="hook-text">Она вернулась другой. Он хотел прежнюю. Прежней больше не было.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Маленький персонаж обнаружил что весь его мир — чья-то витрина.`)"><span class="hook-n" style="color:#FF6B6B">#046</span><div class="hook-text">Маленький персонаж обнаружил что весь его мир — чья-то витрина.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она всю жизнь боялась стать матерью. А потом стала — и поняла почему боялась.`)"><span class="hook-n" style="color:#FF6B6B">#047</span><div class="hook-text">Она всю жизнь боялась стать матерью. А потом стала — и поняла почему боялась.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он помогал всем. Когда упал сам — никого рядом не оказалось.`)"><span class="hook-n" style="color:#FF6B6B">#048</span><div class="hook-text">Он помогал всем. Когда упал сам — никого рядом не оказалось.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она знала что это ошибка. Сделала снова. Третий раз тоже.`)"><span class="hook-n" style="color:#FF6B6B">#049</span><div class="hook-text">Она знала что это ошибка. Сделала снова. Третий раз тоже.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Они расстались. Через неделю поняли что не умеют жить отдельно.`)"><span class="hook-n" style="color:#FF6B6B">#050</span><div class="hook-text">Они расстались. Через неделю поняли что не умеют жить отдельно.</div><span class="copy-ico">⎘</span></div>
+<div class="cat-header"><span class="cat-dot" style="background:#4ECDC4"></span>💫 AI-сериалы и дорамы</div>
+<div class="hook-card" onclick="copyHook(this,`Три года она молчала. Сегодня — нет.`)"><span class="hook-n" style="color:#4ECDC4">#051</span><div class="hook-text">Три года она молчала. Сегодня — нет.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он вернулся. Богатым. К той которую отверг бедной.`)"><span class="hook-n" style="color:#4ECDC4">#052</span><div class="hook-text">Он вернулся. Богатым. К той которую отверг бедной.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она узнала что беременна в тот день когда подписала документы о разводе.`)"><span class="hook-n" style="color:#4ECDC4">#053</span><div class="hook-text">Она узнала что беременна в тот день когда подписала документы о разводе.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он думал что предал её первым. Она предала его за год до этого.`)"><span class="hook-n" style="color:#4ECDC4">#054</span><div class="hook-text">Он думал что предал её первым. Она предала его за год до этого.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она спасла его жизнь. Он об этом не знает до сих пор.`)"><span class="hook-n" style="color:#4ECDC4">#055</span><div class="hook-text">Она спасла его жизнь. Он об этом не знает до сих пор.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Они встретились случайно. Потом она узнала что ничего случайного не было.`)"><span class="hook-n" style="color:#4ECDC4">#056</span><div class="hook-text">Они встретились случайно. Потом она узнала что ничего случайного не было.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он женился на другой. На той которая была копией первой.`)"><span class="hook-n" style="color:#4ECDC4">#057</span><div class="hook-text">Он женился на другой. На той которая была копией первой.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она ушла без объяснений. Объяснение было — он не был готов его услышать.`)"><span class="hook-n" style="color:#4ECDC4">#058</span><div class="hook-text">Она ушла без объяснений. Объяснение было — он не был готов его услышать.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он искал её десять лет. Она жила в соседнем доме.`)"><span class="hook-n" style="color:#4ECDC4">#059</span><div class="hook-text">Он искал её десять лет. Она жила в соседнем доме.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Они договорились забыть. Оба не смогли.`)"><span class="hook-n" style="color:#4ECDC4">#060</span><div class="hook-text">Они договорились забыть. Оба не смогли.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она сделала вид что простила. Он поверил. Это была ошибка.`)"><span class="hook-n" style="color:#4ECDC4">#061</span><div class="hook-text">Она сделала вид что простила. Он поверил. Это была ошибка.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он думал что знает её. Она думала то же самое. Оба ошибались.`)"><span class="hook-n" style="color:#4ECDC4">#062</span><div class="hook-text">Он думал что знает её. Она думала то же самое. Оба ошибались.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она выбрала его. Потом узнала кем он был до того как они встретились.`)"><span class="hook-n" style="color:#4ECDC4">#063</span><div class="hook-text">Она выбрала его. Потом узнала кем он был до того как они встретились.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он сказал что никогда не вернётся. Вернулся. Дверь не открыли.`)"><span class="hook-n" style="color:#4ECDC4">#064</span><div class="hook-text">Он сказал что никогда не вернётся. Вернулся. Дверь не открыли.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Они любили друг друга. Этого оказалось недостаточно.`)"><span class="hook-n" style="color:#4ECDC4">#065</span><div class="hook-text">Они любили друг друга. Этого оказалось недостаточно.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она доверяла только ему. Именно он и оказался тем самым.`)"><span class="hook-n" style="color:#4ECDC4">#066</span><div class="hook-text">Она доверяла только ему. Именно он и оказался тем самым.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он уехал чтобы стать лучше для неё. Пока его не было — она стала лучше без него.`)"><span class="hook-n" style="color:#4ECDC4">#067</span><div class="hook-text">Он уехал чтобы стать лучше для неё. Пока его не было — она стала лучше без него.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Она узнала правду. И пожалела что узнала.`)"><span class="hook-n" style="color:#4ECDC4">#068</span><div class="hook-text">Она узнала правду. И пожалела что узнала.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Он вернул всё что взял. Кроме времени.`)"><span class="hook-n" style="color:#4ECDC4">#069</span><div class="hook-text">Он вернул всё что взял. Кроме времени.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Они расстались правильно. Культурно. Без скандала. Это было хуже всего.`)"><span class="hook-n" style="color:#4ECDC4">#070</span><div class="hook-text">Они расстались правильно. Культурно. Без скандала. Это было хуже всего.</div><span class="copy-ico">⎘</span></div>
+<div class="cat-header"><span class="cat-dot" style="background:#C084FC"></span>💰 Монетизация</div>
+<div class="hook-card" onclick="copyHook(this,`Первую тысячу рублей на контенте я заработала случайно. Вторую — намеренно.`)"><span class="hook-n" style="color:#C084FC">#071</span><div class="hook-text">Первую тысячу рублей на контенте я заработала случайно. Вторую — намеренно.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я продала первый продукт до того как набрала тысячу подписчиков.`)"><span class="hook-n" style="color:#C084FC">#072</span><div class="hook-text">Я продала первый продукт до того как набрала тысячу подписчиков.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Три месяца без единой продажи. На четвёртый — поняла в чём была ошибка.`)"><span class="hook-n" style="color:#C084FC">#073</span><div class="hook-text">Три месяца без единой продажи. На четвёртый — поняла в чём была ошибка.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Мне написали «за такое не платят». Сейчас платят.`)"><span class="hook-n" style="color:#C084FC">#074</span><div class="hook-text">Мне написали «за такое не платят». Сейчас платят.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я боялась называть цену. Пока не увидела за сколько продают другие.`)"><span class="hook-n" style="color:#C084FC">#075</span><div class="hook-text">Я боялась называть цену. Пока не увидела за сколько продают другие.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Первый отказ клиента научил меня больше чем первая продажа.`)"><span class="hook-n" style="color:#C084FC">#076</span><div class="hook-text">Первый отказ клиента научил меня больше чем первая продажа.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я раздавала всё бесплатно год. Потом поняла что этим обесценивала себя.`)"><span class="hook-n" style="color:#C084FC">#077</span><div class="hook-text">Я раздавала всё бесплатно год. Потом поняла что этим обесценивала себя.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Мне предложили сотрудничество. Я согласилась. Это стоило мне аудитории.`)"><span class="hook-n" style="color:#C084FC">#078</span><div class="hook-text">Мне предложили сотрудничество. Я согласилась. Это стоило мне аудитории.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я думала что для продаж нужна большая аудитория. Оказалось — другое.`)"><span class="hook-n" style="color:#C084FC">#079</span><div class="hook-text">Я думала что для продаж нужна большая аудитория. Оказалось — другое.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Первый большой заказ я чуть не отклонила потому что не верила что справлюсь.`)"><span class="hook-n" style="color:#C084FC">#080</span><div class="hook-text">Первый большой заказ я чуть не отклонила потому что не верила что справлюсь.</div><span class="copy-ico">⎘</span></div>
+<div class="cat-header"><span class="cat-dot" style="background:#FF8C42"></span>🤖 AI-инструменты</div>
+<div class="hook-card" onclick="copyHook(this,`Я потратила сорок часов на тестирование AI-инструментов. Нужен был один.`)"><span class="hook-n" style="color:#FF8C42">#081</span><div class="hook-text">Я потратила сорок часов на тестирование AI-инструментов. Нужен был один.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Бесплатная версия сделала то с чем платная не справилась.`)"><span class="hook-n" style="color:#FF8C42">#082</span><div class="hook-text">Бесплатная версия сделала то с чем платная не справилась.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я попросила AI сделать то что казалось невозможным. Он сделал.`)"><span class="hook-n" style="color:#FF8C42">#083</span><div class="hook-text">Я попросила AI сделать то что казалось невозможным. Он сделал.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Один промпт изменил качество моих роликов навсегда. Вот он.`)"><span class="hook-n" style="color:#FF8C42">#084</span><div class="hook-text">Один промпт изменил качество моих роликов навсегда. Вот он.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я думала AI меня заменит. Оказалось — он заменил пять других задач.`)"><span class="hook-n" style="color:#FF8C42">#085</span><div class="hook-text">Я думала AI меня заменит. Оказалось — он заменил пять других задач.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Ошибка в промпте которую я делала полгода. Никто не сказал.`)"><span class="hook-n" style="color:#FF8C42">#086</span><div class="hook-text">Ошибка в промпте которую я делала полгода. Никто не сказал.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Инструмент который все игнорируют делает то за что другие берут деньги.`)"><span class="hook-n" style="color:#FF8C42">#087</span><div class="hook-text">Инструмент который все игнорируют делает то за что другие берут деньги.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я показала AI свой лучший ролик. Он сказал что именно сделало его лучшим.`)"><span class="hook-n" style="color:#FF8C42">#088</span><div class="hook-text">Я показала AI свой лучший ролик. Он сказал что именно сделало его лучшим.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`За десять минут с AI я сделала то над чем сидела три дня.`)"><span class="hook-n" style="color:#FF8C42">#089</span><div class="hook-text">За десять минут с AI я сделала то над чем сидела три дня.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я попросила AI раскритиковать мой контент. Не ожидала такой честности.`)"><span class="hook-n" style="color:#FF8C42">#090</span><div class="hook-text">Я попросила AI раскритиковать мой контент. Не ожидала такой честности.</div><span class="copy-ico">⎘</span></div>
+<div class="cat-header"><span class="cat-dot" style="background:#FFD93D"></span>✨ Личный бренд</div>
+<div class="hook-card" onclick="copyHook(this,`Год ежедневных постов. Вот что это дало — и чего не дала никакая стратегия.`)"><span class="hook-n" style="color:#FFD93D">#091</span><div class="hook-text">Год ежедневных постов. Вот что это дало — и чего не дала никакая стратегия.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я сменила нишу. Все говорили что это ошибка. Через месяц стало ясно кто был прав.`)"><span class="hook-n" style="color:#FFD93D">#092</span><div class="hook-text">Я сменила нишу. Все говорили что это ошибка. Через месяц стало ясно кто был прав.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Один пост который я почти не опубликовала — собрал больше всего.`)"><span class="hook-n" style="color:#FFD93D">#093</span><div class="hook-text">Один пост который я почти не опубликовала — собрал больше всего.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Меня скопировали. Дословно. Это было лучшим комплиментом и худшим опытом.`)"><span class="hook-n" style="color:#FFD93D">#094</span><div class="hook-text">Меня скопировали. Дословно. Это было лучшим комплиментом и худшим опытом.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я удалила сто постов. Осталось двадцать. Охваты выросли.`)"><span class="hook-n" style="color:#FFD93D">#095</span><div class="hook-text">Я удалила сто постов. Осталось двадцать. Охваты выросли.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Первый вирусный ролик пришёл когда я уже собиралась всё бросить.`)"><span class="hook-n" style="color:#FFD93D">#096</span><div class="hook-text">Первый вирусный ролик пришёл когда я уже собиралась всё бросить.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Меня обвинили в том чего я не делала. Публично. Вот как я ответила.`)"><span class="hook-n" style="color:#FFD93D">#097</span><div class="hook-text">Меня обвинили в том чего я не делала. Публично. Вот как я ответила.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я перестала объяснять что делаю. Начала просто показывать. Разница — огромная.`)"><span class="hook-n" style="color:#FFD93D">#098</span><div class="hook-text">Я перестала объяснять что делаю. Начала просто показывать. Разница — огромная.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Три месяца без публикаций. Вернулась. Аудитория не ушла — выросла.`)"><span class="hook-n" style="color:#FFD93D">#099</span><div class="hook-text">Три месяца без публикаций. Вернулась. Аудитория не ушла — выросла.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Я думала что мой контент не для всех. Оказалось — именно поэтому он для многих.`)"><span class="hook-n" style="color:#FFD93D">#100</span><div class="hook-text">Я думала что мой контент не для всех. Оказалось — именно поэтому он для многих.</div><span class="copy-ico">⎘</span></div>
+<div class="cat-header"><span class="cat-dot" style="background:#FF6B6B"></span>🔥 Универсальные провокации</div>
+<div class="hook-card" onclick="copyHook(this,`Если ваш первый кадр — вы машете рукой и говорите привет — пролистали.`)"><span class="hook-n" style="color:#FF6B6B">#101</span><div class="hook-text">Если ваш первый кадр — вы машете рукой и говорите привет — пролистали.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Контент который делается для всех — не нужен никому.`)"><span class="hook-n" style="color:#FF6B6B">#102</span><div class="hook-text">Контент который делается для всех — не нужен никому.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Перфекционизм в контенте — это другое название страха публиковать.`)"><span class="hook-n" style="color:#FF6B6B">#103</span><div class="hook-text">Перфекционизм в контенте — это другое название страха публиковать.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Все ждут идеального момента. Идеального момента не будет.`)"><span class="hook-n" style="color:#FF6B6B">#104</span><div class="hook-text">Все ждут идеального момента. Идеального момента не будет.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`То что работало год назад убивает ваш охват сегодня.`)"><span class="hook-n" style="color:#FF6B6B">#105</span><div class="hook-text">То что работало год назад убивает ваш охват сегодня.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Вы не конкурируете с другими авторами. Вы конкурируете со сном зрителя.`)"><span class="hook-n" style="color:#FF6B6B">#106</span><div class="hook-text">Вы не конкурируете с другими авторами. Вы конкурируете со сном зрителя.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Самая дорогая ошибка в контенте — ждать пока будет идеально готово.`)"><span class="hook-n" style="color:#FF6B6B">#107</span><div class="hook-text">Самая дорогая ошибка в контенте — ждать пока будет идеально готово.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Лайки не платят ипотеку. Говорю очевидное.`)"><span class="hook-n" style="color:#FF6B6B">#108</span><div class="hook-text">Лайки не платят ипотеку. Говорю очевидное.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Красивая картинка без хука — дорогой провал.`)"><span class="hook-n" style="color:#FF6B6B">#109</span><div class="hook-text">Красивая картинка без хука — дорогой провал.</div><span class="copy-ico">⎘</span></div>
+<div class="hook-card" onclick="copyHook(this,`Контент без стратегии — это дорогое хобби с красивыми фотографиями.`)"><span class="hook-n" style="color:#FF6B6B">#110</span><div class="hook-text">Контент без стратегии — это дорогое хобби с красивыми фотографиями.</div><span class="copy-ico">⎘</span></div>
+
+</div>
+<div class="footer">
+  <div class="footer-logo">НейроЭра Академия</div>
+  <div class="footer-links">
+    <a href="https://t.me/annaproai" target="_blank">@annaproai</a>
+    <a href="https://t.me/neir0set0chka" target="_blank">@neir0set0chka</a>
+  </div>
+</div>
+<div class="toast" id="toast">✓ Хук скопирован!</div>
+<script>
+function copyHook(card, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    card.classList.add('copied');
+    card.querySelector('.copy-ico').textContent = '✓';
+    showToast();
+    setTimeout(() => { card.classList.remove('copied'); card.querySelector('.copy-ico').textContent = '⎘'; }, 2000);
+  });
+}
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+</script>
+</body>
+</html>
